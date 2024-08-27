@@ -1,0 +1,3 @@
+[submodule "submodules/RetroArch"]
+	path = submodules/RetroArch
+	url = https://github.com/libretro/RetroArch.git
