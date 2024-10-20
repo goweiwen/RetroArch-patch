@@ -120,7 +120,7 @@ OS = Linux
 TARGET = $(PACKAGE_NAME)
 
 OBJ :=
-OBJ += miyoo.o
+OBJ += miyoomini.o
 LINK := $(CXX)
 DEF_FLAGS := -marm -mtune=cortex-a7 -march=armv7ve+simd -mfpu=neon-vfpv4 -mfloat-abi=hard -ffast-math -fomit-frame-pointer
 DEF_FLAGS += -ffunction-sections -fdata-sections
