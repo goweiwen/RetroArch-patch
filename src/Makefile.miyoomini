@@ -209,6 +209,7 @@ $(OBJDIR)/%.o: %.S $(HEADERS)
 clean:
 	rm -rf $(OBJDIR_BASE)
 	rm -f $(TARGET)
+	rm -f retroarch_miyoo354
 	rm -f *.d
 
 .PHONY: all clean

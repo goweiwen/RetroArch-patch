@@ -45,6 +45,14 @@ $(BUILD_DIR)/retroarch_miyoo354: $(BUILD_DIR)/retroarch
 
 build: assemble $(BUILD_DIR)/retroarch_miyoo354
 
+patch:
+	@$(call print_status, Creating patch)
+	SUBMODULE_DIR=$(SUBMODULE_DIR) \
+	BUILD_DIR=$(BUILD_DIR) \
+	SRC_DIR=$(SRC_DIR) \
+	PATCH_DIR=$(PATCH_DIR) \
+	./scripts/create_patch.sh
+
 clean:
 	@$(call print_status, Cleaning)
 	rm -rf $(BUILD_DIR)
