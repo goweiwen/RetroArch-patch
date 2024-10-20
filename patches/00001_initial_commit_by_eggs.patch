@@ -165,37 +165,6 @@ index 5b710e887d..bf0fff79df 100644
     sdl_dingux_get_poke_interface
  };
 +#endif
-diff --git a/gfx/drivers_font_renderer/bitmapfont_6x10.c b/gfx/drivers_font_renderer/bitmapfont_6x10.c
-index c0974a86e0..d5cb51438a 100644
---- a/gfx/drivers_font_renderer/bitmapfont_6x10.c
-+++ b/gfx/drivers_font_renderer/bitmapfont_6x10.c
-@@ -45,6 +45,11 @@
- #define FONT_6X10_GLYPH_MIN_LSE 0x100
- #define FONT_6X10_GLYPH_MAX_LSE 0x24F
- 
-+#define FONT_6X10_FILE_RUS "bitmap6x10_rus.bin"
-+#define FONT_6X10_SIZE_RUS 2432
-+#define FONT_6X10_GLYPH_MIN_RUS 0x400
-+#define FONT_6X10_GLYPH_MAX_RUS 0x45F
-+
- /* Loads a font of the specified language
-  * Returns NULL if language is invalid or
-  * font file is missing */
-@@ -75,7 +80,13 @@ bitmapfont_lut_t *bitmapfont_6x10_load(unsigned language)
- 	      glyph_min = FONT_6X10_GLYPH_MIN_ENG;
- 	      glyph_max = FONT_6X10_GLYPH_MAX_ENG;
- 	      break;
--	      /* All Latin alphabet languages go here */
-+	   case RETRO_LANGUAGE_RUSSIAN:
-+        font_file = FONT_6X10_FILE_RUS;
-+        font_size = FONT_6X10_SIZE_RUS;
-+        glyph_min = FONT_6X10_GLYPH_MIN_RUS;
-+        glyph_max = FONT_6X10_GLYPH_MAX_RUS;
-+        break;
-+	   /* All Latin alphabet languages go here */
- 	   case RETRO_LANGUAGE_FRENCH:
- 	   case RETRO_LANGUAGE_SPANISH:
- 	   case RETRO_LANGUAGE_GERMAN:
 diff --git a/gfx/video_filter.c b/gfx/video_filter.c
 index 092a5d2a81..ea16e7a5f1 100644
 --- a/gfx/video_filter.c

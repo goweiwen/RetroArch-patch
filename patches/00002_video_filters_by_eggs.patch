@@ -336,4 +336,3 @@ index c0af01478e..1137d3e9a4 100644
 +   (void)simd;
     return &normal4x_generic;
  }
- 
