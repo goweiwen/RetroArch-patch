@@ -6,20 +6,26 @@ PATCH_DIR = patches
 # Function to print status messages
 print_status = echo -e "\033[34m--- $1\033[0m"
 
+.PHONY: all build assemble apply-patches copy-submodule update-submodule convert-line-endings init-submodule create-patch clean
+
 all: build
 
-init-submodule:
-	@$(call print_status, Initializing submodule)
-	git submodule update --init --recursive
+## Submodule management
 
-update-submodule: configure-submodule
-	@$(call print_status, Updating submodule)
-	git submodule update --remote --merge
+init-submodule:
+	$(call print_status, Initializing submodule)
+	@if [ -d "$(SUBMODULE_DIR)" ] && [ -z "$$(ls -A $(SUBMODULE_DIR))" ]; then \
+		git submodule update --init --recursive; \
+	else \
+		echo "Submodule directory is not empty, skipping initialization"; \
+	fi
 
 copy-submodule: init-submodule
 	@$(call print_status, Copying submodule)
 	mkdir -p $(BUILD_DIR)
 	cp -r $(SUBMODULE_DIR)/* $(BUILD_DIR)/
+
+## Patch management
 
 convert-line-endings:
 	@$(call print_status, Converting line endings)
@@ -31,30 +37,33 @@ apply-patches: copy-submodule convert-line-endings
 		patch -d $(BUILD_DIR) -p1 < $$patch; \
 	done
 
+create-patch:
+	@$(call print_status, Creating patch)
+	./scripts/create_patch.sh
+
 assemble: apply-patches
 	@$(call print_status, Assembling source)
 	cp -r $(SRC_DIR)/* $(BUILD_DIR)/
+
+## Build targets
 
 $(BUILD_DIR)/retroarch:
 	@$(call print_status, Building for Miyoo Mini)
 	@cd $(BUILD_DIR) && make -f Makefile.miyoomini PACKAGE_NAME=retroarch
 
-$(BUILD_DIR)/retroarch_miyoo354: $(BUILD_DIR)/retroarch
+$(BUILD_DIR)/retroarch_miyoo354:
 	@$(call print_status, Building for Miyoo 354)
 	@cd $(BUILD_DIR) && make -f Makefile.miyoomini MIYOO354=1 PACKAGE_NAME=retroarch_miyoo354
 
-build: assemble $(BUILD_DIR)/retroarch_miyoo354
+build: assemble $(BUILD_DIR)/retroarch $(BUILD_DIR)/retroarch_miyoo354
+	@$(call print_status, Copying binaries)
+	mkdir -p bin
+	cp $(BUILD_DIR)/retroarch bin/
+	cp $(BUILD_DIR)/retroarch_miyoo354 bin/
 
-patch:
-	@$(call print_status, Creating patch)
-	SUBMODULE_DIR=$(SUBMODULE_DIR) \
-	BUILD_DIR=$(BUILD_DIR) \
-	SRC_DIR=$(SRC_DIR) \
-	PATCH_DIR=$(PATCH_DIR) \
-	./scripts/create_patch.sh
+## Clean everything
 
 clean:
 	@$(call print_status, Cleaning)
 	rm -rf $(BUILD_DIR)
-
-.PHONY: all build assemble apply-patches copy-submodule update-submodule
+	rm -rf bin

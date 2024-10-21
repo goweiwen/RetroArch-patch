@@ -10,15 +10,15 @@ TOOLCHAIN_DIR=/opt/miyoomini-toolchain
 
 CC		= $(TOOLCHAIN_DIR)/bin/arm-linux-gnueabihf-gcc
 CXX		= $(TOOLCHAIN_DIR)/bin/arm-linux-gnueabihf-g++
-STRIP		= $(TOOLCHAIN_DIR)/bin/arm-linux-gnueabihf-strip
+STRIP	= $(TOOLCHAIN_DIR)/bin/arm-linux-gnueabihf-strip
 
-SDL_CONFIG	?= $(TOOLCHAIN_DIR)/arm-linux-gnueabihf/libc/usr/bin/sdl-config
+SDL_CONFIG		?= $(TOOLCHAIN_DIR)/arm-linux-gnueabihf/libc/usr/bin/sdl-config
 FREETYPE_CONFIG	?= $(TOOLCHAIN_DIR)/arm-linux-gnueabihf/libc/usr/bin/freetype-config
 
-INC_DIR		?= $(TOOLCHAIN_DIR)/arm-linux-gnueabihf/libc/usr/include
-LIB_DIR		?= $(TOOLCHAIN_DIR)/arm-linux-gnueabihf/libc/usr/lib
+INC_DIR	?= $(TOOLCHAIN_DIR)/arm-linux-gnueabihf/libc/usr/include
+LIB_DIR	?= $(TOOLCHAIN_DIR)/arm-linux-gnueabihf/libc/usr/lib
 
-LTO		= -flto
+LTO			= -flto
 STRIP_BIN	= 1
 
 #########################
