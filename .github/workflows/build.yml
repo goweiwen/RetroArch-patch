@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+concurrency:
+  group: build-${{ github.repository }}-${{ github.ref }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
