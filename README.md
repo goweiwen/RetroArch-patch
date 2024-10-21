@@ -1,5 +1,7 @@
 # RetroArch Patch Management and Build System
 
+[![Build](https://github.com/OnionUI/RetroArch-patch/actions/workflows/build.yml/badge.svg)](https://github.com/OnionUI/RetroArch-patch/actions/workflows/build.yml)
+
 This repository contains a [Makefile](Makefile) for managing the RetroArch submodule, applying patches, and building the project for different platforms. The project is structured to facilitate easy management of the RetroArch source code, application of custom patches, and building for specific hardware targets.
 
 ## Prerequisites
