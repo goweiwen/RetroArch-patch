@@ -19,8 +19,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: Copy submodule
+        run: make copy-submodule
+      - name: Apply patches
+        run: make apply-patches
+      - name: Assemble project
+        run: make assemble
       - name: Build project
-        shell: bash
-        run: |
-          source /root/.bashrc
-          make build
+        run: make build
