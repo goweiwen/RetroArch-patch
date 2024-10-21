@@ -1,0 +1,23 @@
+name: Build
+
+on:
+  merge_group:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: aemiii91/miyoomini-toolchain:latest
+      options: --user root
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: Build project
+      shell: bash
+      run: |
+        source /root/.bashrc
+        make build
