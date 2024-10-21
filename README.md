@@ -15,7 +15,7 @@ This repository contains a [Makefile](Makefile) for managing the RetroArch submo
 - `submodules/RetroArch`: Contains the RetroArch submodule with the main source code.
 - `src`: Contains additional source files that are part of the project.
 - `patches`: Contains patch files that modify the RetroArch source code.
-- `scripts`: Contains utility scripts for tasks such as updating patch offsets.
+- `scripts`: Contains utility scripts.
 
 ## Project Contents
 
