@@ -3,8 +3,19 @@ BUILD_DIR = build
 SRC_DIR = src
 PATCH_DIR = patches
 
+ECHO = echo
+
+PLATFORM ?= $(UNION_PLATFORM)
+ifeq (,$(PLATFORM))
+PLATFORM=linux
+endif
+
+ifeq ($(PLATFORM),linux)
+ECHO = echo -e
+endif
+
 # Function to print status messages
-print_status = echo -e "\033[34m--- $1\033[0m"
+print_status = $(ECHO) "\033[34m--- $1\033[0m"
 
 .PHONY: all build assemble apply-patches copy-submodule update-submodule convert-line-endings init-submodule create-patch clean
 
@@ -13,7 +24,7 @@ all: build
 ## Submodule management
 
 init-submodule:
-	$(call print_status, Initializing submodule)
+	@$(call print_status, Initializing submodule)
 	@if [ -d "$(SUBMODULE_DIR)" ] && [ -z "$$(ls -A $(SUBMODULE_DIR))" ]; then \
 		git submodule update --init --recursive; \
 	else \
