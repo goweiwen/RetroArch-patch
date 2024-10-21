@@ -17,7 +17,7 @@ This repository contains a [Makefile](Makefile) for managing the RetroArch submo
 
 ## Project Contents
 
-- **Makefile**: The [Makefile](Makefile) includes various targets for initializing the submodule, copying files, converting line endings, applying patches, assembling the source, and building the project. It automates the workflow to ensure consistency and ease of use.
+- **Makefile**: The [Makefile](Makefile) includes various targets for copying files, applying patches, and building the project. It automates the workflow to ensure consistency and ease of use.
 - **Submodule**: The `submodules/RetroArch` directory contains the RetroArch source code as a Git submodule, allowing the RetroArch source code to be kept separate from custom modifications.
 - **Patches**: The `patches` directory contains patch files that apply custom modifications to the RetroArch source code.
 - **Source Files**: The `src` directory contains additional source files that are part of the project. These files are copied into the build directory during the assembly process.
@@ -32,37 +32,25 @@ make build
 
 This command is equivalent to running the following steps individually:
 
-1. **Initialize the submodule** (if not already initialized):
-
-    ```sh
-    make init-submodule
-    ```
-
-2. **Copy the submodule files to the build directory**:
+1. **Copy the submodule files to the build directory**:
 
     ```sh
     make copy-submodule
     ```
 
-3. **Convert line endings** (if necessary):
-
-    ```sh
-    make convert-line-endings
-    ```
-
-4. **Apply patches**:
+2. **Apply patches**:
 
     ```sh
     make apply-patches
     ```
 
-5. **Assemble the source files**:
+3. **Assemble the source files**:
 
     ```sh
     make assemble
     ```
 
-6. **Build the project**:
+4. **Build the project**:
 
     ```sh
     make build
