@@ -5,7 +5,6 @@ SUBMODULE_DIR="${SUBMODULE_DIR:-submodules/RetroArch}"
 BUILD_DIR="${BUILD_DIR:-build}"
 PATCH_DIR="${PATCH_DIR:-patches}"
 SRC_DIR="${SRC_DIR:-src}"
-TEMP_DIR=$(mktemp -d)
 
 # Create patches directory if it doesn't exist
 mkdir -p $PATCH_DIR
@@ -21,31 +20,14 @@ NEW_PATCH_NUM=$(printf "%05d" $((LAST_PATCH + 1)))
 echo -e "\e[33mEnter a descriptive name for the patch file:\e[0m"
 read PATCH_NAME
 
-# Generate a timestamp for the patch file
-TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-
 # Create the patch file with the descriptive name
-PATCH_FILE="$PATCH_DIR/${NEW_PATCH_NUM}_${TIMESTAMP}_${PATCH_NAME}.patch"
+PATCH_FILE="$PATCH_DIR/${NEW_PATCH_NUM}_${PATCH_NAME}.patch"
 
 echo -e "\e[32mCreating patch file: $PATCH_FILE\e[0m"
 
-# Run make assemble using the temporary directory as the build directory
-make assemble \
-    BUILD_DIR=$TEMP_DIR \
-    SUBMODULE_DIR=$SUBMODULE_DIR \
-    PATCH_DIR=$PATCH_DIR \
-    SRC_DIR=$SRC_DIR \
-    > /dev/null 2>&1 ||
-    exit 1
-
-cd $BUILD_DIR && make -f Makefile.miyoomini clean > /dev/null 2>&1 && cd ..
-
-# Generate the patch, ignoring files in the src directory
-rsync -a --exclude-from=<(cd $SRC_DIR && find . -type f) $TEMP_DIR/ $BUILD_DIR/ --delete
-git diff --no-index --ignore-space-at-eol $TEMP_DIR $BUILD_DIR > $PATCH_FILE 2> /dev/null
-
-# Delete the temporary directory
-rm -rf $TEMP_DIR
+# Generate the patch
+cd "$SUBMODULE_DIR"
+git diff --no-index --ignore-space-at-eol > $PATCH_FILE 2> /dev/null
 
 # Check if the patch file is empty and delete it if it is
 if [ ! -s $PATCH_FILE ]; then
