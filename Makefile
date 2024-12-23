@@ -66,11 +66,11 @@ assemble: $(BUILD_DIR)/.is_assembled
 
 $(BUILD_DIR)/retroarch: $(BUILD_DIR)/.is_assembled
 	@$(call print_status, Building for Miyoo Mini)
-	@cd $(BUILD_DIR) && make -f Makefile.miyoomini PACKAGE_NAME=retroarch
+	@cd $(BUILD_DIR) && make clean all -f Makefile.miyoomini PACKAGE_NAME=retroarch
 
 $(BUILD_DIR)/retroarch_miyoo354: $(BUILD_DIR)/.is_assembled
 	@$(call print_status, Building for Miyoo 354)
-	@cd $(BUILD_DIR) && make -f Makefile.miyoomini MIYOO354=1 PACKAGE_NAME=retroarch_miyoo354
+	@cd $(BUILD_DIR) && make clean all -f Makefile.miyoomini MIYOO354=1 PACKAGE_NAME=retroarch_miyoo354
 
 build: $(BUILD_DIR)/retroarch $(BUILD_DIR)/retroarch_miyoo354
 	@$(call print_status, Copying binaries)
