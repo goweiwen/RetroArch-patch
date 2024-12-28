@@ -1,0 +1,36 @@
+From 32e4be60b8fa8799927f6e0a6f698db0d781b369 Mon Sep 17 00:00:00 2001
+From: Goh Wei Wen <goweiwen@gmail.com>
+Date: Wed, 19 Jul 2023 19:47:35 +0800
+Subject: [PATCH] feat: retain fast-forward state when pausing
+
+---
+ runloop.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/runloop.c b/runloop.c
+index bd8bc2adecf..27f2c8b8048 100644
+--- a/runloop.c
++++ b/runloop.c
+@@ -6210,14 +6210,14 @@ static enum runloop_state_enum runloop_check_state(
+       if (!check2)
+          check2 = old_hold_button_state != new_hold_button_state;
+ 
+-      /* Don't allow fastmotion while paused */
+-      if (runloop_paused)
+-      {
+-         check2                = true;
+-         new_button_state      = false;
+-         new_hold_button_state = false;
+-         input_st->flags      |= INP_FLAG_NONBLOCKING;
+-      }
++      // /* Don't allow fastmotion while paused */
++      // if (runloop_paused)
++      // {
++      //    check2                = true;
++      //    new_button_state      = false;
++      //    new_hold_button_state = false;
++      //    input_st->flags      |= INP_FLAG_NONBLOCKING;
++      // }
+ 
+       if (check2)
+       {

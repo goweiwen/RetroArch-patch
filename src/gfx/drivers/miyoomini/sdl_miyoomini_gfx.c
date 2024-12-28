@@ -896,6 +896,11 @@ static bool sdl_miyoomini_gfx_frame(void *data, const void *frame,
     *   core skips a frame) */
    if (unlikely(!vid || (!frame && !vid->menu_active))) return true;
 
+   /* If pause is active, we don't render anything
+    * so that we don't draw over the menu */
+   runloop_state_t *runloop_st = runloop_state_get_ptr();
+   if (unlikely(runloop_st->flags & RUNLOOP_FLAG_PAUSED)) return true;
+
    /* If fast forward is currently active, we may
     * push frames at an 'unlimited' rate. Since the
     * display has a fixed refresh rate of 60 Hz, this
