@@ -15,7 +15,7 @@
 //	FREEMMA		: force free all allocated MMAs when init & quit
 #define FREEMMA
 //	CLEARFBATQUIT	: clear framebuffer when quit
-#define CLEARFBATQUIT
+// #define CLEARFBATQUIT
 //	GFX_BLOCKING	: limit to 60fps but never skips frames
 //			:  in case of clearing all buffers by GFX_Flip()x3, needs to use BLOCKING (or GFX_FlipForce())
 //	GFX_FLIPWAIT	: wait until Blit is done when flip
