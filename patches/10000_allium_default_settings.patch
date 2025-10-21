@@ -1,0 +1,983 @@
+diff --git a/config.def.h b/config.def.h
+index 5167461218..efa2bff1ae 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -364,7 +364,7 @@
+ #define DEFAULT_DISABLE_COMPOSITION false
+ 
+ /* Video VSYNC (recommended) */
+-#define DEFAULT_VSYNC true
++#define DEFAULT_VSYNC false
+ 
+ /* Vulkan specific */
+ #define DEFAULT_MAX_SWAPCHAIN_IMAGES 3
+@@ -541,7 +541,7 @@
+ #if defined(DINGUX)
+ /* Enables aspect ratio correction (1:1 PAR) when
+  * using the IPU hardware scaler in Dingux devices */
+-#define DEFAULT_DINGUX_IPU_KEEP_ASPECT true
++#define DEFAULT_DINGUX_IPU_KEEP_ASPECT false
+ /* Sets image filtering method when using the
+  * IPU hardware scaler in Dingux devices */
+ #if defined(RETROFW)
+@@ -680,9 +680,9 @@
+ #define DEFAULT_SETTINGS_SHOW_RECORDING true
+ #define DEFAULT_SETTINGS_SHOW_ONSCREEN_DISPLAY true
+ #define DEFAULT_SETTINGS_SHOW_USER_INTERFACE true
+-#define DEFAULT_SETTINGS_SHOW_AI_SERVICE true
++#define DEFAULT_SETTINGS_SHOW_AI_SERVICE false
+ #define DEFAULT_SETTINGS_SHOW_ACCESSIBILITY true
+-#define DEFAULT_SETTINGS_SHOW_POWER_MANAGEMENT true
++#define DEFAULT_SETTINGS_SHOW_POWER_MANAGEMENT false
+ #define DEFAULT_SETTINGS_SHOW_ACHIEVEMENTS true
+ #define DEFAULT_SETTINGS_SHOW_NETWORK true
+ #define DEFAULT_SETTINGS_SHOW_PLAYLISTS true
+@@ -698,16 +698,16 @@
+ #define DEFAULT_QUICK_MENU_SHOW_SAVE_LOAD_STATE true
+ #define DEFAULT_QUICK_MENU_SHOW_UNDO_SAVE_LOAD_STATE true
+ #define DEFAULT_QUICK_MENU_SHOW_REPLAY false
+-#define DEFAULT_QUICK_MENU_SHOW_ADD_TO_FAVORITES true
++#define DEFAULT_QUICK_MENU_SHOW_ADD_TO_FAVORITES false
+ #define DEFAULT_QUICK_MENU_SHOW_ADD_TO_PLAYLIST false
+-#define DEFAULT_QUICK_MENU_SHOW_START_RECORDING true
+-#define DEFAULT_QUICK_MENU_SHOW_START_STREAMING true
+-#define DEFAULT_QUICK_MENU_SHOW_SET_CORE_ASSOCIATION true
+-#define DEFAULT_QUICK_MENU_SHOW_RESET_CORE_ASSOCIATION true
++#define DEFAULT_QUICK_MENU_SHOW_START_RECORDING false
++#define DEFAULT_QUICK_MENU_SHOW_START_STREAMING false
++#define DEFAULT_QUICK_MENU_SHOW_SET_CORE_ASSOCIATION false
++#define DEFAULT_QUICK_MENU_SHOW_RESET_CORE_ASSOCIATION false
+ #define DEFAULT_QUICK_MENU_SHOW_CORE_OPTIONS true
+ #define DEFAULT_QUICK_MENU_SHOW_CORE_OPTIONS_FLUSH false
+ #define DEFAULT_QUICK_MENU_SHOW_CONTROLS true
+-#define DEFAULT_QUICK_MENU_SHOW_LATENCY true
++#define DEFAULT_QUICK_MENU_SHOW_LATENCY false
+ #define DEFAULT_QUICK_MENU_SHOW_REWIND true
+ #define DEFAULT_QUICK_MENU_SHOW_OVERLAYS true
+ #define DEFAULT_QUICK_MENU_SHOW_VIDEO_LAYOUT false
+@@ -858,8 +858,9 @@
+ 
+ #define DEFAULT_SHOW_ADVANCED_SETTINGS true
+ 
+-#define DEFAULT_RGUI_COLOR_THEME RGUI_THEME_CLASSIC_GREEN
+-#define DEFAULT_RGUI_TRANSPARENCY true
++#define DEFAULT_RGUI_COLOR_THEME RGUI_THEME_CUSTOM
++#define DEFAULT_RGUI_THEME_PRESET "rgui/Allium.cfg"
++#define DEFAULT_RGUI_TRANSPARENCY false
+ 
+ #define DEFAULT_RGUI_INLINE_THUMBNAILS false
+ #define DEFAULT_RGUI_SWAP_THUMBNAILS false
+@@ -953,14 +954,14 @@
+ #define DEFAULT_ALL_USERS_CONTROL_MENU false
+ #endif
+ 
+-#define DEFAULT_QUIT_PRESS_TWICE true
++#define DEFAULT_QUIT_PRESS_TWICE false
+ 
+ #define DEFAULT_LOG_TO_FILE false
+ 
+ #define DEFAULT_LOG_TO_FILE_TIMESTAMP false
+ 
+ /* Crop overscanned frames. */
+-#define DEFAULT_CROP_OVERSCAN true
++#define DEFAULT_CROP_OVERSCAN false
+ 
+ /* Font size for on-screen messages. */
+ #if defined(DINGUX)
+@@ -978,7 +979,7 @@
+ 
+ /* Color of the message.
+  * RGB hex value. */
+-#define DEFAULT_MESSAGE_COLOR 0xffff00
++#define DEFAULT_MESSAGE_COLOR 0xffffff
+ 
+ #define DEFAULT_MESSAGE_BGCOLOR_ENABLE false
+ #define DEFAULT_MESSAGE_BGCOLOR_RED 0
+@@ -1082,28 +1083,28 @@
+ #if defined(HAVE_LIBNX) && defined(HAVE_GFX_WIDGETS)
+ #define DEFAULT_NOTIFICATION_SHOW_AUTOCONFIG false
+ #else
+-#define DEFAULT_NOTIFICATION_SHOW_AUTOCONFIG true
++#define DEFAULT_NOTIFICATION_SHOW_AUTOCONFIG false
+ #endif
+ 
+ /* Display a notification when cheats are being
+  * applied */
+-#define DEFAULT_NOTIFICATION_SHOW_CHEATS_APPLIED true
++#define DEFAULT_NOTIFICATION_SHOW_CHEATS_APPLIED false
+ 
+ /* Display a notification when applying an
+  * IPS/BPS/UPS/Xdelta patch file */
+-#define DEFAULT_NOTIFICATION_SHOW_PATCH_APPLIED true
++#define DEFAULT_NOTIFICATION_SHOW_PATCH_APPLIED false
+ 
+ /* Display a notification when loading an
+  * input remap file */
+-#define DEFAULT_NOTIFICATION_SHOW_REMAP_LOAD true
++#define DEFAULT_NOTIFICATION_SHOW_REMAP_LOAD false
+ 
+ /* Display a notification when loading a
+  * configuration override file */
+-#define DEFAULT_NOTIFICATION_SHOW_CONFIG_OVERRIDE_LOAD true
++#define DEFAULT_NOTIFICATION_SHOW_CONFIG_OVERRIDE_LOAD false
+ 
+ /* Display a notification when automatically restoring
+  * at launch the last used disk of multi-disk content */
+-#define DEFAULT_NOTIFICATION_SHOW_SET_INITIAL_DISK true
++#define DEFAULT_NOTIFICATION_SHOW_SET_INITIAL_DISK false
+ 
+ /* Display disc control notifications */
+ #define DEFAULT_NOTIFICATION_SHOW_DISK_CONTROL true
+@@ -1291,7 +1292,7 @@
+ 
+ /* Saves non-volatile SRAM at a regular interval.
+  * It is measured in seconds. A value of 0 disables autosave. */
+-#if defined(__i386__) || defined(__i486__) || defined(__i686__) || defined(__x86_64__) || defined(_M_X64) || defined(_WIN32) || defined(OSX) || defined(ANDROID) || defined(IOS) || defined(DINGUX)
++#if defined(__i386__) || defined(__i486__) || defined(__i686__) || defined(__x86_64__) || defined(_M_X64) || defined(_WIN32) || defined(OSX) || defined(ANDROID) || defined(IOS) || (defined(DINGUX) && !defined(MIYOOMINI))
+ /* Flush to file every 10 seconds on modern platforms by default */
+ #define DEFAULT_AUTOSAVE_INTERVAL 10
+ #else
+@@ -1390,8 +1391,8 @@
+  * The path is $SRAM_PATH.auto.
+  * RetroArch will automatically load any savestate with this path on
+  * startup if savestate_auto_load is set. */
+-#define DEFAULT_SAVESTATE_AUTO_SAVE false
+-#define DEFAULT_SAVESTATE_AUTO_LOAD false
++#define DEFAULT_SAVESTATE_AUTO_SAVE true
++#define DEFAULT_SAVESTATE_AUTO_LOAD true
+ 
+ #define DEFAULT_SAVESTATE_THUMBNAIL_ENABLE false
+ 
+@@ -1415,7 +1416,7 @@
+ #define MAXIMUM_FASTFORWARD_RATIO 50.0f
+ 
+ /* Skip frames when fast forwarding. */
+-#define DEFAULT_FASTFORWARD_FRAMESKIP true
++#define DEFAULT_FASTFORWARD_FRAMESKIP false
+ 
+ /* Enable runloop for variable refresh rate screens. Force x1 speed while handling fast forward too. */
+ #define DEFAULT_VRR_RUNLOOP_ENABLE false
+@@ -1430,7 +1431,7 @@
+ #define DEFAULT_RUN_AHEAD_HIDE_WARNINGS false
+ 
+ /* Enable stdin/network command interface. */
+-#define DEFAULT_NETWORK_CMD_ENABLE false
++#define DEFAULT_NETWORK_CMD_ENABLE true
+ #define DEFAULT_NETWORK_CMD_PORT 55355
+ #define DEFAULT_NETWORK_REMOTE_BASE_PORT 55400
+ #define DEFAULT_STDIN_CMD_ENABLE false
+@@ -1708,6 +1709,8 @@
+  * on OpenDingux devices */
+ #if defined(DINGUX) && defined(HAVE_LIBSHAKE)
+ #define DEFAULT_RUMBLE_GAIN 50
++#elif defined(MIYOOMINI)
++#define DEFAULT_RUMBLE_GAIN 20
+ #else
+ #define DEFAULT_RUMBLE_GAIN 100
+ #endif
+diff --git a/config.def.keybinds.h b/config.def.keybinds.h
+index d86c8b6413..f55d340e65 100644
+--- a/config.def.keybinds.h
++++ b/config.def.keybinds.h
+@@ -657,6 +657,647 @@ static const struct retro_keybind retro_keybinds_1[] = {
+       true
+    },
+ #endif
++#elif defined(MIYOOMINI)
++   #define MIYOOMINI_B      0
++   #define MIYOOMINI_Y      1
++   #define MIYOOMINI_SELECT 2
++   #define MIYOOMINI_START  3
++   #define MIYOOMINI_UP     4
++   #define MIYOOMINI_DOWN   5
++   #define MIYOOMINI_LEFT   6
++   #define MIYOOMINI_RIGHT  7
++   #define MIYOOMINI_A      8
++   #define MIYOOMINI_X      9
++   #define MIYOOMINI_L      10
++   #define MIYOOMINI_R      11
++   #define MIYOOMINI_L2     12
++   #define MIYOOMINI_R2     13
++   #define MIYOOMINI_MENU   14
++   #define MIYOOMINI_POWER  15
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_B, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_B, NO_BTN, MIYOOMINI_B, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_Y, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_Y, NO_BTN, MIYOOMINI_Y, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_SELECT, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_SELECT, NO_BTN, MIYOOMINI_SELECT, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_START, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_START, NO_BTN, MIYOOMINI_START, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_UP, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_UP, NO_BTN, MIYOOMINI_UP, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_DOWN, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_DOWN, NO_BTN, MIYOOMINI_DOWN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_LEFT, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_LEFT, NO_BTN, MIYOOMINI_LEFT, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_RIGHT, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_RIGHT, NO_BTN, MIYOOMINI_RIGHT, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_A, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_A, NO_BTN, MIYOOMINI_A, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_X, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_X, NO_BTN, MIYOOMINI_X, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_L, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_L, NO_BTN, MIYOOMINI_L, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_R, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_R, NO_BTN, MIYOOMINI_R, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_L2, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_L2, NO_BTN, MIYOOMINI_L2, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_R2, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_R2, NO_BTN, MIYOOMINI_R2, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_L3, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_L3, NO_BTN, MIYOOMINI_MENU, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_JOYPAD_R3, RETROK_UNKNOWN,
++      RETRO_DEVICE_ID_JOYPAD_R3, NO_BTN, MIYOOMINI_POWER, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_ANALOG_LEFT_X_PLUS, RETROK_UNKNOWN,
++      RARCH_ANALOG_LEFT_X_PLUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_ANALOG_LEFT_X_MINUS, RETROK_UNKNOWN,
++      RARCH_ANALOG_LEFT_X_MINUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_ANALOG_LEFT_Y_PLUS, RETROK_UNKNOWN,
++      RARCH_ANALOG_LEFT_Y_PLUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_ANALOG_LEFT_Y_MINUS, RETROK_UNKNOWN,
++      RARCH_ANALOG_LEFT_Y_MINUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_ANALOG_RIGHT_X_PLUS, RETROK_UNKNOWN,
++      RARCH_ANALOG_RIGHT_X_PLUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_ANALOG_RIGHT_X_MINUS, RETROK_UNKNOWN,
++      RARCH_ANALOG_RIGHT_X_MINUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_ANALOG_RIGHT_Y_PLUS, RETROK_UNKNOWN,
++      RARCH_ANALOG_RIGHT_Y_PLUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_ANALOG_RIGHT_Y_MINUS, RETROK_UNKNOWN,
++      RARCH_ANALOG_RIGHT_Y_MINUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_TRIGGER, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_TRIGGER, RETRO_DEVICE_ID_MOUSE_LEFT, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_RELOAD, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_RELOAD, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_AUX_A, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_AUX_A, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_AUX_B, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_AUX_B, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_AUX_C, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_AUX_C, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_START, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_START, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_SELECT, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_SELECT, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_DPAD_UP, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_DPAD_UP, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_DPAD_DOWN, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_DPAD_DOWN, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_DPAD_LEFT, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_DPAD_LEFT, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_LIGHTGUN_DPAD_RIGHT, RETROK_UNKNOWN,
++      RARCH_LIGHTGUN_DPAD_RIGHT, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_TURBO_ENABLE, RETROK_UNKNOWN,
++      RARCH_TURBO_ENABLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   /* Hotkeys */
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_ENABLE_HOTKEY, RETROK_UNKNOWN,
++      RARCH_ENABLE_HOTKEY, NO_BTN, MIYOOMINI_MENU, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_MENU_TOGGLE, RETROK_UNKNOWN,
++      RARCH_MENU_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_QUIT_KEY, RETROK_UNKNOWN,
++      RARCH_QUIT_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_CLOSE_CONTENT_KEY, RETROK_UNKNOWN,
++      RARCH_CLOSE_CONTENT_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_RESET, RETROK_UNKNOWN,
++      RARCH_RESET, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_FAST_FORWARD_KEY, RETROK_UNKNOWN,
++      RARCH_FAST_FORWARD_KEY, NO_BTN, MIYOOMINI_R, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_FAST_FORWARD_HOLD_KEY, RETROK_UNKNOWN,
++      RARCH_FAST_FORWARD_HOLD_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_SLOWMOTION_KEY, RETROK_UNKNOWN,
++      RARCH_SLOWMOTION_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_SLOWMOTION_HOLD_KEY, RETROK_UNKNOWN,
++      RARCH_SLOWMOTION_HOLD_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_REWIND, RETROK_UNKNOWN,
++      RARCH_REWIND, NO_BTN, MIYOOMINI_L, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_PAUSE_TOGGLE, RETROK_UNKNOWN,
++      RARCH_PAUSE_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_FRAMEADVANCE, RETROK_UNKNOWN,
++      RARCH_FRAMEADVANCE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_MUTE, RETROK_UNKNOWN,
++      RARCH_MUTE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_VOLUME_UP, RETROK_UNKNOWN,
++      RARCH_VOLUME_UP, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_VOLUME_DOWN, RETROK_UNKNOWN,
++      RARCH_VOLUME_DOWN, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_LOAD_STATE_KEY, RETROK_UNKNOWN,
++      RARCH_LOAD_STATE_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_SAVE_STATE_KEY, RETROK_UNKNOWN,
++      RARCH_SAVE_STATE_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_STATE_SLOT_PLUS, RETROK_UNKNOWN,
++      RARCH_STATE_SLOT_PLUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_STATE_SLOT_MINUS, RETROK_UNKNOWN,
++      RARCH_STATE_SLOT_MINUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_PLAY_REPLAY_KEY, RETROK_UNKNOWN,
++      RARCH_PLAY_REPLAY_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_RECORD_REPLAY_KEY, RETROK_UNKNOWN,
++      RARCH_RECORD_REPLAY_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_HALT_REPLAY_KEY, RETROK_UNKNOWN,
++      RARCH_HALT_REPLAY_KEY, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_REPLAY_SLOT_PLUS, RETROK_UNKNOWN,
++      RARCH_REPLAY_SLOT_PLUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_REPLAY_SLOT_MINUS, RETROK_UNKNOWN,
++      RARCH_REPLAY_SLOT_MINUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_DISK_EJECT_TOGGLE, RETROK_UNKNOWN,
++      RARCH_DISK_EJECT_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_DISK_NEXT, RETROK_UNKNOWN,
++      RARCH_DISK_NEXT, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_DISK_PREV, RETROK_UNKNOWN,
++      RARCH_DISK_PREV, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_TOGGLE, RETROK_UNKNOWN,
++      RARCH_SHADER_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_NEXT, RETROK_UNKNOWN,
++      RARCH_SHADER_NEXT, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_PREV, RETROK_UNKNOWN,
++      RARCH_SHADER_PREV, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_CHEAT_TOGGLE, RETROK_UNKNOWN,
++      RARCH_CHEAT_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_CHEAT_INDEX_PLUS, RETROK_UNKNOWN,
++      RARCH_CHEAT_INDEX_PLUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_CHEAT_INDEX_MINUS, RETROK_UNKNOWN,
++      RARCH_CHEAT_INDEX_MINUS, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_SCREENSHOT, RETROK_UNKNOWN,
++      RARCH_SCREENSHOT, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_RECORDING_TOGGLE, RETROK_UNKNOWN,
++      RARCH_RECORDING_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_STREAMING_TOGGLE, RETROK_UNKNOWN,
++      RARCH_STREAMING_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_GRAB_MOUSE_TOGGLE, RETROK_UNKNOWN,
++      RARCH_GRAB_MOUSE_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_GAME_FOCUS_TOGGLE, RETROK_UNKNOWN,
++      RARCH_GAME_FOCUS_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_FULLSCREEN_TOGGLE_KEY, RETROK_UNKNOWN,
++      RARCH_FULLSCREEN_TOGGLE_KEY, NO_BTN, MIYOOMINI_START, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_UI_COMPANION_TOGGLE, RETROK_UNKNOWN,
++      RARCH_UI_COMPANION_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_VRR_RUNLOOP_TOGGLE, RETROK_UNKNOWN,
++      RARCH_VRR_RUNLOOP_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_RUNAHEAD_TOGGLE, RETROK_UNKNOWN,
++      RARCH_RUNAHEAD_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_PREEMPT_TOGGLE, RETROK_UNKNOWN,
++      RARCH_PREEMPT_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_FPS_TOGGLE, RETROK_UNKNOWN,
++      RARCH_FPS_TOGGLE, NO_BTN, MIYOOMINI_X, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_STATISTICS_TOGGLE, RETROK_UNKNOWN,
++      RARCH_STATISTICS_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_AI_SERVICE, RETROK_UNKNOWN,
++      RARCH_AI_SERVICE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_PING_TOGGLE, RETROK_UNKNOWN,
++      RARCH_NETPLAY_PING_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_HOST_TOGGLE, RETROK_UNKNOWN,
++      RARCH_NETPLAY_HOST_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_GAME_WATCH, RETROK_UNKNOWN,
++      RARCH_NETPLAY_GAME_WATCH, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_PLAYER_CHAT, RETROK_UNKNOWN,
++      RARCH_NETPLAY_PLAYER_CHAT, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_FADE_CHAT_TOGGLE, RETROK_UNKNOWN,
++      RARCH_NETPLAY_FADE_CHAT_TOGGLE, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_OVERLAY_NEXT, RETROK_UNKNOWN,
++      RARCH_OVERLAY_NEXT, NO_BTN, NO_BTN, 0,
++      true
++   },
++   {
++      NULL, NULL,
++      AXIS_NONE, AXIS_NONE, AXIS_NONE,
++      MENU_ENUM_LABEL_VALUE_INPUT_META_OSK, RETROK_UNKNOWN,
++      RARCH_OSK, NO_BTN, NO_BTN, 0,
++      true
++   },
+ #elif defined(DINGUX)
+    { 
+       NULL, NULL,
+diff --git a/configuration.c b/configuration.c
+index 8098143c08..5caa3b3c1a 100644
+--- a/configuration.c
++++ b/configuration.c
+@@ -507,6 +507,8 @@ static const enum audio_driver_enum AUDIO_DEFAULT_DRIVER = AUDIO_CTR;
+ static const enum audio_driver_enum AUDIO_DEFAULT_DRIVER = AUDIO_SWITCH;
+ #elif (defined(DINGUX_BETA) || defined(MIYOO)) && defined(HAVE_ALSA)
+ static const enum audio_driver_enum AUDIO_DEFAULT_DRIVER = AUDIO_ALSA;
++#elif defined(MIYOOMINI)
++static const enum audio_driver_enum AUDIO_DEFAULT_DRIVER = AUDIO_OSS;
+ #elif defined(DINGUX) && defined(HAVE_AL)
+ static const enum audio_driver_enum AUDIO_DEFAULT_DRIVER = AUDIO_AL;
+ #elif defined(HAVE_PULSE)
+@@ -579,7 +581,7 @@ static const enum microphone_driver_enum MICROPHONE_DEFAULT_DRIVER = MICROPHONE_
+ #endif
+ #endif
+ 
+-#if defined(RS90) || defined(MIYOO)
++#if defined(RS90) || defined(MIYOO) || defined(MIYOOMINI)
+ static const enum audio_resampler_driver_enum AUDIO_DEFAULT_RESAMPLER_DRIVER = AUDIO_RESAMPLER_NEAREST;
+ #elif defined(PSP) || defined(EMSCRIPTEN)
+ static const enum audio_resampler_driver_enum AUDIO_DEFAULT_RESAMPLER_DRIVER = AUDIO_RESAMPLER_CC;
+@@ -1502,6 +1504,8 @@ bool config_overlay_enable_default(void)
+       return g_defaults.overlay_enable;
+ #if defined(RARCH_MOBILE) && !TARGET_OS_TV
+    return true;
++#elif defined(MIYOOMINI)
++   return true;
+ #else
+    return false;
+ #endif
+@@ -2083,7 +2087,7 @@ static struct config_bool_setting *populate_settings_bool(
+ #ifdef HAVE_CHEEVOS
+    SETTING_BOOL("cheevos_enable",                &settings->bools.cheevos_enable, true, DEFAULT_CHEEVOS_ENABLE, false);
+    SETTING_BOOL("cheevos_test_unofficial",       &settings->bools.cheevos_test_unofficial, true, false, false);
+-   SETTING_BOOL("cheevos_hardcore_mode_enable",  &settings->bools.cheevos_hardcore_mode_enable, true, true, false);
++   SETTING_BOOL("cheevos_hardcore_mode_enable",  &settings->bools.cheevos_hardcore_mode_enable, true, false, false);
+    SETTING_BOOL("cheevos_challenge_indicators",  &settings->bools.cheevos_challenge_indicators, true, true, false);
+    SETTING_BOOL("cheevos_richpresence_enable",   &settings->bools.cheevos_richpresence_enable, true, true, false);
+    SETTING_BOOL("cheevos_unlock_sound_enable",   &settings->bools.cheevos_unlock_sound_enable, true, false, false);
+@@ -3166,6 +3170,10 @@ void config_set_defaults(void *data)
+       configuration_set_string(settings,
+             settings->paths.directory_menu_config,
+             g_defaults.dirs[DEFAULT_DIR_MENU_CONFIG]);
++      fill_pathname_join_special(settings->paths.path_rgui_theme_preset,
++            settings->paths.directory_assets,
++            DEFAULT_RGUI_THEME_PRESET,
++            sizeof(settings->paths.path_rgui_theme_preset));
+ #if TARGET_OS_IPHONE
+       {
+          char config_file_path[PATH_MAX_LENGTH];
+@@ -3217,6 +3225,27 @@ void config_set_defaults(void *data)
+             g_defaults.dirs[DEFAULT_DIR_RECORD_CONFIG],
+             sizeof(recording_st->config_dir));
+ 
++   if (!string_is_empty(g_defaults.dirs[DEFAULT_DIR_CONTENT_FAVORITES]))
++      configuration_set_string(settings,
++            settings->paths.directory_content_favorites,
++            g_defaults.dirs[DEFAULT_DIR_CONTENT_FAVORITES]);
++   if (!string_is_empty(g_defaults.dirs[DEFAULT_DIR_CONTENT_HISTORY]))
++      configuration_set_string(settings,
++            settings->paths.directory_content_history,
++            g_defaults.dirs[DEFAULT_DIR_CONTENT_HISTORY]);
++   if (!string_is_empty(g_defaults.dirs[DEFAULT_DIR_CONTENT_IMAGE_HISTORY]))
++      configuration_set_string(settings,
++            settings->paths.directory_content_image_history,
++            g_defaults.dirs[DEFAULT_DIR_CONTENT_IMAGE_HISTORY]);
++   if (!string_is_empty(g_defaults.dirs[DEFAULT_DIR_CONTENT_MUSIC_HISTORY]))
++      configuration_set_string(settings,
++            settings->paths.directory_content_music_history,
++            g_defaults.dirs[DEFAULT_DIR_CONTENT_MUSIC_HISTORY]);
++   if (!string_is_empty(g_defaults.dirs[DEFAULT_DIR_CONTENT_VIDEO_HISTORY]))
++      configuration_set_string(settings,
++            settings->paths.directory_content_video_history,
++            g_defaults.dirs[DEFAULT_DIR_CONTENT_VIDEO_HISTORY]);
++
+    if (!string_is_empty(g_defaults.path_config))
+    {
+       char temp_str[PATH_MAX_LENGTH];
+diff --git a/frontend/drivers/platform_unix.c b/frontend/drivers/platform_unix.c
+index 778f54eeda..9c28c5cb7e 100644
+--- a/frontend/drivers/platform_unix.c
++++ b/frontend/drivers/platform_unix.c
+@@ -1726,6 +1726,7 @@ static void frontend_unix_get_env(int *argc,
+    getcwd(base_path, sizeof(base_path));
+ #elif defined(DINGUX)
+    dingux_get_base_path(base_path, sizeof(base_path));
++   const char *root         = getenv("ROOT"); // Root of the SD Card (e.g. /mnt/SDCARD)
+ #else
+    const char *xdg          = getenv("XDG_CONFIG_HOME");
+    const char *home         = getenv("HOME");
+@@ -1750,7 +1751,7 @@ static void frontend_unix_get_env(int *argc,
+    else
+       fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_CORE], base_path,
+             "cores", sizeof(g_defaults.dirs[DEFAULT_DIR_CORE]));
+-#if defined(DINGUX)
++#if defined(DINGUX) && !defined(MIYOOMINI)
+    /* On platforms that require manual core installation/
+     * removal, placing core info files in the same directory
+     * as the cores themselves makes file management highly
+@@ -1858,8 +1859,8 @@ static void frontend_unix_get_env(int *argc,
+             "filters/video", sizeof(g_defaults.dirs[DEFAULT_DIR_VIDEO_FILTER]));
+ #endif
+ 
+-   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_MENU_CONFIG], base_path,
+-         "config", sizeof(g_defaults.dirs[DEFAULT_DIR_MENU_CONFIG]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_MENU_CONFIG], root,
++         "Saves/CurrentProfile/config", sizeof(g_defaults.dirs[DEFAULT_DIR_MENU_CONFIG]));
+    fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_REMAP],
+          g_defaults.dirs[DEFAULT_DIR_MENU_CONFIG],
+          "remaps", sizeof(g_defaults.dirs[DEFAULT_DIR_REMAP]));
+@@ -1881,18 +1882,34 @@ static void frontend_unix_get_env(int *argc,
+          "overlays/keyboards", sizeof(g_defaults.dirs[DEFAULT_DIR_OSK_OVERLAY]));
+    fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_CORE_ASSETS], base_path,
+          "downloads", sizeof(g_defaults.dirs[DEFAULT_DIR_CORE_ASSETS]));
+-   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SCREENSHOT], base_path,
+-         "screenshots", sizeof(g_defaults.dirs[DEFAULT_DIR_SCREENSHOT]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SCREENSHOT], root,
++         "Screenshots", sizeof(g_defaults.dirs[DEFAULT_DIR_SCREENSHOT]));
+    fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_THUMBNAILS], base_path,
+          "thumbnails", sizeof(g_defaults.dirs[DEFAULT_DIR_THUMBNAILS]));
+    fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_LOGS], base_path,
+          "logs", sizeof(g_defaults.dirs[DEFAULT_DIR_LOGS]));
+-   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SRAM], base_path,
+-         "saves", sizeof(g_defaults.dirs[DEFAULT_DIR_SRAM]));
+-   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SAVESTATE], base_path,
+-         "states", sizeof(g_defaults.dirs[DEFAULT_DIR_SAVESTATE]));
+-   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SYSTEM], base_path,
+-         "system", sizeof(g_defaults.dirs[DEFAULT_DIR_SYSTEM]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SRAM], root,
++         "Saves/CurrentProfile/saves", sizeof(g_defaults.dirs[DEFAULT_DIR_SRAM]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SAVESTATE], root,
++         "Saves/CurrentProfile/states", sizeof(g_defaults.dirs[DEFAULT_DIR_SAVESTATE]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_CONTENT_FAVORITES], root,
++         "Saves/CurrentProfile/lists", sizeof(g_defaults.dirs[DEFAULT_DIR_CONTENT_FAVORITES]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_CONTENT_HISTORY], root,
++         "Saves/CurrentProfile/lists", sizeof(g_defaults.dirs[DEFAULT_DIR_CONTENT_HISTORY]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_CONTENT_IMAGE_HISTORY], root,
++         "Saves/CurrentProfile/lists", sizeof(g_defaults.dirs[DEFAULT_DIR_CONTENT_IMAGE_HISTORY]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_CONTENT_MUSIC_HISTORY], root,
++         "Saves/CurrentProfile/lists", sizeof(g_defaults.dirs[DEFAULT_DIR_CONTENT_MUSIC_HISTORY]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_CONTENT_VIDEO_HISTORY], root,
++         "Saves/CurrentProfile/lists", sizeof(g_defaults.dirs[DEFAULT_DIR_CONTENT_VIDEO_HISTORY]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_PLAYLIST], root,
++         "Saves/CurrentProfile/lists/playlists", sizeof(g_defaults.dirs[DEFAULT_DIR_PLAYLIST]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_REMAP], root,
++         "Saves/CurrentProfile/config/remaps", sizeof(g_defaults.dirs[DEFAULT_DIR_REMAP]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SYSTEM], root,
++         "BIOS", sizeof(g_defaults.dirs[DEFAULT_DIR_SYSTEM]));
++   fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_MENU_CONTENT], root,
++         "Roms", sizeof(g_defaults.dirs[DEFAULT_DIR_MENU_CONTENT]));
+ #endif
+ 
+ #ifndef IS_SALAMANDER
