@@ -56,8 +56,6 @@
 #define likely(x)   __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
-#define SDL_MIYOOMINI_WIDTH  640
-#define SDL_MIYOOMINI_HEIGHT 480
 #define RGUI_MENU_WIDTH  320
 #define RGUI_MENU_HEIGHT 240
 #define SDL_NUM_FONT_GLYPHS 256
@@ -67,7 +65,6 @@
 #define OSD_TEXT_LEN_MAX (OSD_TEXT_LINE_LEN * OSD_TEXT_LINES_MAX)
 #define RGUI_MENU_STRETCH_FILE_PATH "/mnt/SDCARD/.tmp_update/config/RetroArch/.noMenuStretch"
 #define FB_DEVICE_FILE_PATH "/dev/fb0"
-#define NEW_RES_FILE_PATH "/tmp/new_res_available"
 
 uint32_t res_x, res_y;
 bool rgui_menu_stretch = true;
@@ -790,23 +787,18 @@ static void *sdl_miyoomini_gfx_init(const video_info_t *video,
 
    sdl_miyoomini_set_cpugovernor(PERFORMANCE);
 
-   if (access(NEW_RES_FILE_PATH, F_OK) == 0) {
-      RARCH_LOG("[MI_GFX]: 560p available, changing resolution\n");
-      system("/mnt/SDCARD/.tmp_update/script/change_resolution.sh 752x560");
+   int fb = open(FB_DEVICE_FILE_PATH, O_RDWR);
+   if (fb == -1) {
+       RARCH_ERR("Error opening framebuffer device");
+       return NULL;
    }
 
-    int fb = open(FB_DEVICE_FILE_PATH, O_RDWR);
-    if (fb == -1) {
-        RARCH_ERR("Error opening framebuffer device");
-        return NULL;
-    }
-
-    struct fb_var_screeninfo vinfo;
-    if (ioctl(fb, FBIOGET_VSCREENINFO, &vinfo)) {
-        RARCH_ERR("Error reading variable information");
-        close(fb);
-        return NULL;
-    }
+   struct fb_var_screeninfo vinfo;
+   if (ioctl(fb, FBIOGET_VSCREENINFO, &vinfo)) {
+       RARCH_ERR("Error reading variable information");
+       close(fb);
+       return NULL;
+   }
 
    res_x = vinfo.xres;
    res_y = vinfo.yres;

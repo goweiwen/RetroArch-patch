@@ -407,6 +407,10 @@ void	GFX_Init(void) {
 		// screen init
 		SDL_SetVideoMode(res_x, res_y, 32, SDL_SWSURFACE);
 		ioctl(fd_fb, FBIOGET_VSCREENINFO, &vinfo);
+		fprintf(stderr, "[MI_GFX]: Resolution after GFX_Open: %ux%u (vinfo: %ux%u)\n", res_x, res_y, vinfo.xres, vinfo.yres);
+		vinfo.xres = res_x;
+		vinfo.yres = res_y;
+		vinfo.xres_virtual = res_x;
 		vinfo.yres_virtual = res_y * 3; vinfo.yoffset = 0;
 		/* vinfo.xres = vinfo.xres_virtual = 640; vinfo.yres = 480;
 		vinfo.xoffset = vinfo.yoffset = vinfo.red.msb_right = vinfo.green.msb_right = 
@@ -415,8 +419,8 @@ void	GFX_Init(void) {
 		vinfo.red.offset = 16; vinfo.transp.offset = 24; vinfo.bits_per_pixel = 32; */
 		ioctl(fd_fb, FBIOPUT_VSCREENINFO, &vinfo);
 
-		res_x = vinfo.xres;
-		res_y = vinfo.yres;
+		fprintf(stderr, "[MI_GFX]: Resolution after PUT_VSCREENINFO: %ux%u (vinfo: %ux%u)\n", res_x, res_y, vinfo.xres, vinfo.yres);
+
 		// get physical address of FB
 		ioctl(fd_fb, FBIOGET_FSCREENINFO, &finfo);
 
