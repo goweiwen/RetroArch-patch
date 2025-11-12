@@ -959,14 +959,6 @@ static void sdl_miyoomini_set_texture_enable(void *data, bool state, bool full_s
    vid->menu_active = state;
 
    sdl_miyoomini_toggle_powersave(state);
-
-   if (state) {
-      system("playActivity stop_all &");
-      vid->was_in_menu = true;
-   }
-   else {
-      system("playActivity resume &");
-   }
 }
 
 static void sdl_miyoomini_set_texture_frame(void *data, const void *frame, bool rgb32,
